@@ -159,8 +159,6 @@ curl http://localhost:3000/fibonacci/10
 // src/event/services/redis-counter.service.ts
 async incrementEventCounter(eventId: number): Promise<number> {
   const key = `event:${eventId}:counter`;
-  // 현재는 cache-manager 시뮬레이션
-  // 실제 Redis에서는: return await redisClient.incr(key);
   const currentValue = (await this.cacheManager.get<number>(key)) || 0;
   const newValue = currentValue + 1;
   await this.cacheManager.set(key, newValue);
